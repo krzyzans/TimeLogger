@@ -32,6 +32,7 @@ namespace Timelogger.Api.Controllers
             CancellationToken token = default)
         {
             var projectsQuery = _context.Projects
+                .Include(p => p.TimeRegistrations)
                 .Select(p => new ProjectModel(p));
 
             if (!string.IsNullOrWhiteSpace(orderby))
@@ -56,6 +57,7 @@ namespace Timelogger.Api.Controllers
         {
             ProjectModel project = await _context.Projects
                 .Where(p => p.Id == projectId)
+                .Include(p => p.TimeRegistrations)
                 .Select(p => new ProjectModel(p))
                 .FirstOrDefaultAsync(token);
 

@@ -80,7 +80,7 @@ namespace Timelogger.Api
                 new Project
                 {
                     Id = 1,
-                    Name = "e-conomic Interview",
+                    Name = "e-conomic Interview First",
                     DeadlineTime = DateTime.Parse("25.02.2024")
                 });
 
@@ -88,7 +88,7 @@ namespace Timelogger.Api
                 new Project
                 {
                     Id = 2,
-                    Name = "e-conomic Interview",
+                    Name = "e-conomic Interview Second",
                     DeadlineTime = DateTime.Parse("26.02.2024")
                 });
             context.TimeRegistrations.Add(

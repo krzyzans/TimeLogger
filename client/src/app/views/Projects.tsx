@@ -1,7 +1,14 @@
-import React from "react";
-import Table from "../components/Table";
+import React, { useEffect, useState } from "react";
+import Project from "../api/project";
+
 
 export default function Projects() {
+    const [projects, setProjects] = useState<Project[]>([]);
+
+    useEffect(() => {
+        populateProjects();
+    }, []);
+
     return (
         <>
             <div className="flex items-center my-6">
@@ -29,7 +36,34 @@ export default function Projects() {
                 </div>
             </div>
 
-            <Table />
+            <table className="table-fixed w-full">
+            <thead className="bg-gray-200">
+                <tr>
+                    <th className="border px-4 py-2 w-12">#</th>
+                    <th className="border px-4 py-2">Project Name</th>
+                    <th className="border px-4 py-2">Deadline</th>
+                    <th className="border px-4 py-2">Reserved time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {projects.map((item, index) => (
+                  <tr key={index}>
+                    <td className="border px-4 py-2 w-12">{item.id}</td>
+                    <td className="border px-4 py-2"><a href="redirect to reservations of time">{item.name}</a></td>
+                    <td className="border px-4 py-2">{item.deadLine}</td>
+                    <td className="border px-4 py-2">{item.reservationSum} min.</td>
+                  </tr>
+                ))}
+            </tbody>
+        </table>
         </>
     );
+
+    async function populateProjects() {
+        const BASE_URL = "http://localhost:3001/api";
+        const response = await fetch(`${BASE_URL}/projects`);
+        const data = await response.json();
+
+        setProjects(data);
+    }
 }
